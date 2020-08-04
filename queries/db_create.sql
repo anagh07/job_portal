@@ -18,5 +18,5 @@ CREATE TABLE categories (
     PRIMARY KEY (id)
 );
 
-DROP table jobs;
+-- DROP table jobs;
 
