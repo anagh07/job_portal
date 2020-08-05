@@ -15,4 +15,12 @@ class User {
         return $result;
     }
 
+    public function getEmployer($email) {
+        $this->db->query("SELECT email, password FROM employers WHERE email = :e_email");
+        $this->db->bind(':e_email', $email);
+        $result = $this->db->single();
+
+        return $result;
+    }
+
 }

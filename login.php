@@ -6,22 +6,30 @@ $user = new User;
 
 // login check
 // Receive the data from the form
-if (isset($_POST['login'])) {
-    // User credentials from db
-    $auth_user = $user->getUser($_POST['email']);
-    $auth_email = $auth_user->email;
-    $auth_password = $auth_user->password;
-    
+if (isset($_POST['login'])) {    
     // Input user credentials
-    $auth_usertype = $_POST['usertype'];
+    $input_usertype = $_POST['usertype'];
     $input_email = $_POST['email'];
     $input_password = $_POST['password'];
 
     // For employers
-    if ($auth_usertype == 'employer') {
+    if ($input_usertype == 'employer') {
         // employers auth code
+        $auth_employer = $user->getEmployer($_POST['email']);
+        $auth_email = $auth_employer->email;
+        $auth_password = $auth_employer->password;
+        if ($auth_email == $input_email && $auth_password == $input_password) {
+            $_SESSION['isLoggedIn'] = true;
+            $_SESSION['employerLogin'] = true;
+            redirect('index.php', 'Successfully logged in!', 'success');
+        } else {
+            redirect('login.php', 'Invalid email or password', 'error');
+        }
     } else {
-        // employee auth code
+        // User credentials from db
+        $auth_user = $user->getUser($_POST['email']);
+        $auth_email = $auth_user->email;
+        $auth_password = $auth_user->password;
         // Check for match
         if ($auth_email == $input_email && $auth_password == $input_password) {
             $_SESSION['isLoggedIn'] = true;

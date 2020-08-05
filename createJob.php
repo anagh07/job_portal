@@ -23,15 +23,20 @@ if (isset($_POST['submit'])) {
     }
 }
 
-// Create view
-$template = new Template('views/createJob.php');
-
-// Pass down data to the views
-$template->categories = $job->getCategories();
-if (!empty($_SESSION['isLoggedIn'])) {
-    $template->isLoggedIn = $_SESSION['isLoggedIn'];
+// Check if user logged in as employer
+if (empty($_SESSION['employerLogin'])) {
+    redirect('login.php', 'Please login as employer to hire!', 'error');
 } else {
-    $template->isLoggedIn = false;
+    // Create view
+    $template = new Template('views/createJob.php');
+    
+    // Pass down data to the views
+    $template->categories = $job->getCategories();
+    if (!empty($_SESSION['isLoggedIn'])) {
+        $template->isLoggedIn = $_SESSION['isLoggedIn'];
+    } else {
+        $template->isLoggedIn = false;
+    }
+    
+    echo $template;
 }
-
-echo $template;

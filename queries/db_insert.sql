@@ -23,7 +23,10 @@ VALUES
 -- # ----------------------------
 INSERT INTO users (`email`, `password`)
 VALUES
-    ('test@test.com', '1234');
+    ('test@test.com', '1234'),
     ('user@test.com', '1234');
 
-
+-- # ----------------------------
+INSERT INTO employers (`email`, `password`)
+VALUES
+    ('admin@test.com', '1234');
