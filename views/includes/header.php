@@ -20,9 +20,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
+                    <?php if(!empty($isLoggedIn)) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?controller=logout">Logout</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Login/Signup</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </nav>
             <h3 class="text-muted"><?php echo SITE_TITLE; ?></h3>

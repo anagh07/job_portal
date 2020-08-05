@@ -20,5 +20,10 @@ VALUES
     ('technology'),
     ('business');
 
+-- # ----------------------------
+INSERT INTO users (`email`, `password`)
+VALUES
+    ('test@test.com', '1234');
+    ('user@test.com', '1234');
 
 
