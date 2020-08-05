@@ -1,7 +1,7 @@
 <?php include 'includes/header.php'; ?>
         <div class="jumbotron">
             <h1 class="display-4">Find a job</h1>
-            <form action="index.php" method="GET">
+            <form action="userDashboard.php" method="GET">
                 <select name="category" class="form-control">
                     <option value="0">- choose category</option>
                     <option value="0">all categories</option>

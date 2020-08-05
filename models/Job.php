@@ -52,4 +52,22 @@ class Job {
 
         return $result;
     }
+
+    public function create($data) {
+        // Query
+        $this->db->query("
+            INSERT INTO jobs (title, description, company, category_id) VALUES (:title, :description, :company, :category_id)
+        ");
+        $this->db->bind(':title', $data['title']);
+        $this->db->bind(':description', $data['description']);
+        $this->db->bind(':company', $data['company']);
+        $this->db->bind(':category_id', $data['category']);
+
+        // Return true/false depending on whether job was created
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
