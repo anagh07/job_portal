@@ -8,37 +8,37 @@ class Job {
     }
 
     public function getAllJobs() {
-        $this->db->query("SELECT jobs.*, categories.name AS c_name 
-                            FROM jobs 
-                            INNER JOIN categories
-                            ON jobs.category_id = categories.id
-                            ORDER BY jobs.createdAt DESC");
+        $this->db->query("SELECT job_listing.*, job_category.category_name AS c_name 
+                            FROM job_listing 
+                            INNER JOIN job_category
+                            ON job_listing.category_id = job_category.category_id
+                            ORDER BY job_listing.post_date DESC");
         $result = $this->db->resultSet();
 
         return $result;
     }
 
     public function getCategories() {
-        $this->db->query("SELECT * FROM categories");
+        $this->db->query("SELECT * FROM job_category");
         $results = $this->db->resultSet();
 
         return $results;
     }
 
     public function getByCategory($category) {
-        $this->db->query("SELECT jobs.*, categories.name AS c_name 
-                            FROM jobs 
-                                INNER JOIN categories
-                                ON jobs.category_id = categories.id
-                            WHERE jobs.category_id = $category
-                            ORDER BY jobs.createdAt DESC");
+        $this->db->query("SELECT job_listing.*, job_category.category_name AS c_name 
+                            FROM job_listing 
+                                INNER JOIN job_category
+                                ON job_listing.category_id = job_category.category_id
+                            WHERE job_listing.category_id = $category
+                            ORDER BY job_listing.post_date DESC");
         $result = $this->db->resultSet();
 
         return $result;
     }
 
     public function getCategory($category_id) {
-        $this->db->query("SELECT * FROM categories WHERE id = :category_id");
+        $this->db->query("SELECT * FROM job_category WHERE category_id = :category_id");
         $this->db->bind(':category_id', $category_id);
         $result = $this->db->single();
 
@@ -46,7 +46,7 @@ class Job {
     }
 
     public function getJob($id) {
-        $this->db->query("SELECT * FROM jobs WHERE id = :id");
+        $this->db->query("SELECT * FROM job_listing WHERE job_ID = :id");
         $this->db->bind(':id', $id);
         $result = $this->db->single();
 
@@ -56,12 +56,14 @@ class Job {
     public function create($data) {
         // Query
         $this->db->query("
-            INSERT INTO jobs (title, description, company, category_id) VALUES (:title, :description, :company, :category_id)
+            INSERT INTO job_listing (job_title, job_description, no_of_vacancies, post_date, salary, status, category_id, company) VALUES (:job_title, :job_description, :no_of_vacancies, CURDATE(), :salary, 'hiring', :category_id, :company)
         ");
-        $this->db->bind(':title', $data['title']);
-        $this->db->bind(':description', $data['description']);
+        $this->db->bind(':job_title', $data['job_title']);
+        $this->db->bind(':job_description', $data['job_description']);
+        $this->db->bind(':no_of_vacancies', $data['no_of_vacancies']);
+        $this->db->bind(':salary', $data['salary']);
         $this->db->bind(':company', $data['company']);
-        $this->db->bind(':category_id', $data['category']);
+        $this->db->bind(':category_id', $data['category_id']);
 
         // Return true/false depending on whether job was created
         if ($this->db->execute()) {

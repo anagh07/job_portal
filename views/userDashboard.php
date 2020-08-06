@@ -6,7 +6,7 @@
                     <option value="0">- choose category</option>
                     <option value="0">all categories</option>
                     <?php foreach($categories as $category): ?>
-                        <option value="<?php echo $category->id; ?>"><?php echo $category->name ?></option>
+                        <option value="<?php echo $category->category_id; ?>"><?php echo $category->category_name ?></option>
                     <?php endforeach; ?>
                 </select>
                 <br>
@@ -18,11 +18,11 @@
         <?php foreach($jobs as $job): ?>
         <div class="row marketing">
             <div class="col-md-10">
-                <h4><?php echo $job->title; ?></h4>
-                <p><?php echo $job->description; ?></p>
+                <h4><?php echo $job->job_title; ?></h4>
+                <p><?php echo $job->job_description; ?></p>
             </div>
             <div class="col-md-2">
-                <a class="btn btn-primary" href="jobDetails.php?id=<?php echo $job->id; ?>">View</a>
+                <a class="btn btn-primary" href="jobDetails.php?id=<?php echo $job->job_ID; ?>">View</a>
             </div>
         </div>
         <?php endforeach; ?>

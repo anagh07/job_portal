@@ -3,7 +3,7 @@ CREATE DATABASE jobportal;
 USE jobportal;
 
 CREATE TABLE jobs (
-		`id` INT NOT NULL AUTO_INCREMENT,
+    `id` INT NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(255) NOT NULL,
     `description` TEXT NOT NULL,
     `company` VARCHAR(255) NOT NULL,

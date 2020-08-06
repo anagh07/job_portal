@@ -9,7 +9,7 @@ $category_id = isset($_GET['category']) ? $_GET['category'] : null;
 
 if($category_id) {
     $template->jobs = $job->getByCategory($category_id);
-    $template->title = 'Jobs found in ' . $job->getCategory($category_id)->name . ' category';
+    $template->title = 'Jobs found in ' . $job->getCategory($category_id)->category_name . ' category';
 } else {
     $template->jobs = $job->getAllJobs();
     $template->title = 'Latest Jobs';

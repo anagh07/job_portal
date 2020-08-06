@@ -1,7 +1,8 @@
 <?php include 'includes/header.php'; ?>
 
+    <!-- Prefill fields with data from DB -->
     <div class="jumbotron">
-        <form action="signup.php" method="post" class="login-form">
+        <form action="login.php" method="post" class="login-form">
             <label for="usertype">Choose user type</label>
             <select name="usertype" class="form-control">
                 <option value="user">User</option>
@@ -9,7 +10,7 @@
             </select>
             <hr>
             <div class="form-group">
-                <label for="fname">First name (or Company name)</label>
+                <label for="fname">First name</label>
                 <input type="text" name="fname" id="fname" class="form-control">
             </div>
             <div class="form-group">
@@ -32,12 +33,8 @@
                 <label for="confirmpassword">Confirm Password</label>
                 <input type="password" name="confirmpassword" id="confirmpassword" class="form-control">
             </div>
-            <input class="btn btn-primary" type="submit" name="signup" value="signup">
+            <input class="btn btn-primary" type="submit" value="Update">
         </form>
-        <hr>
-        <p>---------------------------------------------------------------------</p>
-        <p>Have an account already? Login now:</p>
-        <a class="btn btn-success" href="login.php" role="button">Login</a>
     </div>
 
 <?php include 'includes/footer.php'; ?>

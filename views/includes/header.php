@@ -22,6 +22,9 @@
                     </li>
                     <?php if(!empty($isLoggedIn)) : ?>
                         <li class="nav-item">
+                            <a class="nav-link" href="myAccount.php">My Account</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="index.php?controller=logout">Logout</a>
                         </li>
                     <?php else : ?>

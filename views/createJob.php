@@ -15,7 +15,7 @@
             <select name="category" class="form-control">
                 <option value="0">- choose category</option>
                 <?php foreach($categories as $category): ?>
-                    <option value="<?php echo $category->id; ?>"><?php echo $category->name ?></option>
+                    <option value="<?php echo $category->category_id; ?>"><?php echo $category->category_name ?></option>
                 <?php endforeach; ?>
             </select>
         </div>

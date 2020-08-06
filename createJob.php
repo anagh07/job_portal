@@ -3,30 +3,30 @@
 <?php
 $job = new Job;
 
-// Receive the data from the form
-if (isset($_POST['submit'])) {
-    $data = array();
-    $data['company'] = $_POST['company'];
-    $data['title'] = $_POST['title'];
-    $data['category'] = $_POST['category'];
-    $data['salary'] = $_POST['salary'];
-    $data['vacancies'] = $_POST['vacancies'];
-    $data['description'] = $_POST['description'];
-
-    // $job->create($data);
-
-    // Check if job created
-    if ($job->create($data)) {
-        redirect('index.php', 'Job listing created', 'success');
-    } else {
-        redirect('createJob.php', 'Failed to create job listing', 'error');
-    }
-}
-
-// Check if user logged in as employer
-if (empty($_SESSION['employerLogin'])) {
-    redirect('login.php', 'Please login as employer to hire!', 'error');
+if (empty($_SESSION['loggedInUserType'])) {
+    redirect('login.php', 'Please login to post jobs', 'error');
+} else if (empty($_SESSION['employerLogin'])) {
+    redirect('index.php', 'You must be logged in as employer to post', 'error');
 } else {
+    # code...
+    // Receive the data from the form
+    if (isset($_POST['submit'])) {
+        $data = array();
+        $data['company'] = $_POST['company'];
+        $data['job_title'] = $_POST['title'];
+        $data['category_id'] = $_POST['category'];
+        $data['salary'] = $_POST['salary'];
+        $data['no_of_vacancies'] = $_POST['vacancies'];
+        $data['job_description'] = $_POST['description'];
+    
+        // Check if job created
+        if ($job->create($data)) {
+            redirect('index.php', 'Job listing created', 'success');
+        } else {
+            redirect('createJob.php', 'Failed to create job listing', 'error');
+        }
+    }
+    
     // Create view
     $template = new Template('views/createJob.php');
     
@@ -40,3 +40,4 @@ if (empty($_SESSION['employerLogin'])) {
     
     echo $template;
 }
+

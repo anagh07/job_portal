@@ -17,22 +17,28 @@ if (isset($_POST['login'])) {
         // employers auth code
         $auth_employer = $user->getEmployer($_POST['email']);
         $auth_email = $auth_employer->email;
-        $auth_password = $auth_employer->password;
+        $auth_password = $auth_employer->login_password;
         if ($auth_email == $input_email && $auth_password == $input_password) {
             $_SESSION['isLoggedIn'] = true;
             $_SESSION['employerLogin'] = true;
+            $_SESSION['loggedInUserEmail'] = $auth_email;
+            $_SESSION['loggedInUserType'] = $input_usertype;
             redirect('index.php', 'Successfully logged in!', 'success');
         } else {
             redirect('login.php', 'Invalid email or password', 'error');
         }
-    } else {
+    } 
+    // For users
+    else {
         // User credentials from db
         $auth_user = $user->getUser($_POST['email']);
         $auth_email = $auth_user->email;
-        $auth_password = $auth_user->password;
+        $auth_password = $auth_user->login_password;
         // Check for match
         if ($auth_email == $input_email && $auth_password == $input_password) {
             $_SESSION['isLoggedIn'] = true;
+            $_SESSION['loggedInUserEmail'] = $auth_email;
+            $_SESSION['loggedInUserType'] = $input_usertype;
             redirect('userDashboard.php', 'Successfully logged in!', 'success');
         } else {
             redirect('login.php', 'Invalid email or password', 'error');
@@ -42,7 +48,7 @@ if (isset($_POST['login'])) {
 }
 
 if (!empty($_SESSION['isLoggedIn'])) {
-    redirect('index.php', 'Already logged in!', 'error');
+    redirect('index.php', 'Logout of current user first', 'error');
 } else {
     // Render the view
     $template = new Template('views/login.php');

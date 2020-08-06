@@ -5,8 +5,8 @@
   <hr class="my-4">
   <p>Find a job and get employed. Find an employee for your company or project.</p>
   <p class="lead">
-    <a class="btn btn-primary btn-lg" href="userDashboard.php" role="button">Find a job</a>
-    <a class="btn btn-primary btn-lg" href="createJob.php" role="button">Hire someone</a>
+    <a class="btn btn-info btn-lg" href="userDashboard.php" role="button">Find a job</a>
+    <a class="btn btn-success btn-lg" href="createJob.php" role="button">Post a listing</a>
   </p>
 </div>
 
