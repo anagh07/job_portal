@@ -46,5 +46,6 @@ if (!empty($_SESSION['isLoggedIn'])) {
         }
     }
 
+    $template->editMode = false;
     echo $template;
 }

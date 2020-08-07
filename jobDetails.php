@@ -23,7 +23,10 @@ if (!empty($_SESSION['loggedInUserType']) && $_SESSION['loggedInUserType'] == 'e
     foreach ($applicant as $temp) {
         $skills[$temp->user_ID] = $user->getSkills($temp->user_ID);
     }
-    $template->skills = $skills;
+    if (!empty($skills)) {
+        # code...
+        $template->skills = $skills;
+    }
 }
 
 // For users

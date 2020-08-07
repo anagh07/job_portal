@@ -46,7 +46,7 @@
                     <p class="mb-1 mt-2"><?php echo $job->job_description ?></p>
                     <small>Company: <?php echo $job->company ?></small>
                     <a class="mb-1 btn btn-outline-info" href="jobDetails.php?id=<?php echo $job->job_ID ?>" type="button">View details and applicants</a>
-                    <a class="mb-5 btn btn-outline-danger" href="#" type="button">Delete Listing</a>
+                    <a class="mb-5 btn btn-outline-danger" href="index.php?controller=deleteJob&jobId=<?php echo $job->job_ID ?>" type="button">Delete Listing</a>
                 </a>
                 <hr>
             </div>

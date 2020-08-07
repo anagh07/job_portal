@@ -50,6 +50,32 @@ class User {
         }
     }
 
+    public function updateUser($data) {
+        // Query
+        $this->db->query("
+            UPDATE user
+            SET first_name = :first_name,
+                last_name = :last_name,
+                phone = :phone,
+                email = :email,
+                login_password = :login_password
+            WHERE user_ID = :user_ID;
+        ");
+        $this->db->bind(':first_name', $data['first_name']);
+        $this->db->bind(':last_name', $data['last_name']);
+        $this->db->bind(':phone', $data['phone']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':login_password', $data['login_password']);
+        $this->db->bind(':user_ID', $data['id']);
+
+        // Return true/false depending on whether job was created
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function createEmployer($data) {
         // Query
         $this->db->query("
@@ -60,6 +86,32 @@ class User {
         $this->db->bind(':phone', $data['phone']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':login_password', $data['login_password']);
+
+        // Return true/false depending on whether job was created
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateEmployer($data) {
+        // Query
+        $this->db->query("
+            UPDATE employer
+            SET first_name = :first_name,
+                last_name = :last_name,
+                phone = :phone,
+                email = :email,
+                login_password = :login_password
+            WHERE employer_ID = :employer_ID;
+        ");
+        $this->db->bind(':first_name', $data['first_name']);
+        $this->db->bind(':last_name', $data['last_name']);
+        $this->db->bind(':phone', $data['phone']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':login_password', $data['login_password']);
+        $this->db->bind(':employer_ID', $data['id']);
 
         // Return true/false depending on whether job was created
         if ($this->db->execute()) {

@@ -73,7 +73,7 @@
                     <p class="mb-1">Company: <?php echo $application->company ?></p>
                     </div>
                     <a class="btn btn-outline-info btn-sm mb-1" href="jobDetails.php?id=<?php echo $application->job_ID ?>" type="button">Check Status</a>
-                    <a class="btn btn-outline-warning btn-sm" href="#" type="button">Withdraw Application</a>
+                    <a class="btn btn-outline-warning btn-sm" href="index.php?controller=deleteApplication&jobId=<?php echo $application->job_ID ?>" type="button">Withdraw Application</a>
                 </a>
                 <hr>
             <?php endforeach ?>

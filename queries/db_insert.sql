@@ -68,7 +68,7 @@ INSERT INTO job_category ()
 VALUES (4, 'agriculture'); 
 
 INSERT INTO job_category ()
-VALUES (5, 'technology');
+VALUES (5, 'technology'), (6, 'engineering'), (7, 'business'), (8, 'entertainment'), (9, 'management'), (10, 'research');
 
 
 INSERT INTO job_listing ()

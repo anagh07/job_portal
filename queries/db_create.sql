@@ -57,7 +57,7 @@ CREATE TABLE user_category (
 );
 
 CREATE TABLE job_category (
-    category_id INT NOT NULL,
+    category_id INT NOT NULL AUTO_INCREMENT,
     category_name varchar(50),
     PRIMARY KEY (category_id)
 );
@@ -82,8 +82,7 @@ CREATE TABLE job_listing_history (
     job_title varchar(50) NOT NULL,
     job_description varchar(50) NOT NULL,
     filling_date DATE,
-    PRIMARY KEY (job_ID),
-	FOREIGN KEY (job_ID) REFERENCES job_listing(job_ID)
+    PRIMARY KEY (job_ID)
 );
 
 CREATE TABLE job_offer (
@@ -92,7 +91,7 @@ CREATE TABLE job_offer (
     offer_date DATE,
     deadline DATE,
     PRIMARY KEY (job_ID),
-	FOREIGN KEY (job_ID) REFERENCES job_listing(job_ID)
+	FOREIGN KEY (job_ID) REFERENCES job_listing(job_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE account (
@@ -137,46 +136,46 @@ CREATE TABLE offers (
     job_ID int NOT NULL,
     user_ID int NOT NULL,
     PRIMARY KEY (job_ID, user_ID),
-    FOREIGN KEY (job_ID) REFERENCES job_offer(job_ID),
-    FOREIGN KEY (user_ID) REFERENCES user(user_ID)
+    FOREIGN KEY (job_ID) REFERENCES job_offer(job_ID) ON DELETE CASCADE,
+    FOREIGN KEY (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE accepts (
     job_ID int NOT NULL,
     user_ID int NOT NULL,
     PRIMARY KEY (job_ID, user_ID),
-    FOREIGN KEY (job_ID) REFERENCES job_offer(job_ID),
-    FOREIGN KEY (user_ID) REFERENCES user(user_ID)
+    FOREIGN KEY (job_ID) REFERENCES job_offer(job_ID) ON DELETE CASCADE,
+    FOREIGN KEY (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE rejects (
     job_ID int NOT NULL,
     user_ID int NOT NULL,
     PRIMARY KEY (job_ID, user_ID),
-    FOREIGN KEY (job_ID) REFERENCES job_offer(job_ID),
-    FOREIGN KEY (user_ID) REFERENCES user(user_ID)
+    FOREIGN KEY (job_ID) REFERENCES job_offer(job_ID) ON DELETE CASCADE,
+    FOREIGN KEY (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE emp_categorized (
     employer_ID int NOT NULL,
     emp_category varchar(50) NOT NULL,
     PRIMARY KEY (employer_ID),
-    FOREIGN KEY (employer_ID) REFERENCES employer(employer_ID)
+    FOREIGN KEY (employer_ID) REFERENCES employer(employer_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE user_categorized (
     user_ID int NOT NULL,
     user_category varchar(50) NOT NULL,
     PRIMARY KEY (user_ID),
-    FOREIGN KEY (user_ID) REFERENCES user(user_ID)
+    FOREIGN KEY (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE posts (
     job_ID int NOT NULL,
     employer_ID int NOT NULL,
     PRIMARY KEY (job_ID),
-    FOREIGN KEY (job_ID) REFERENCES job_listing(job_ID),
-    FOREIGN KEY (employer_ID) REFERENCES employer(employer_ID)
+    FOREIGN KEY (job_ID) REFERENCES job_listing(job_ID) ON DELETE CASCADE,
+    FOREIGN KEY (employer_ID) REFERENCES employer(employer_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE application (
@@ -184,8 +183,8 @@ CREATE TABLE application (
     user_ID int NOT NULL,
     application_date DATE,
     PRIMARY KEY (job_ID, user_ID),
-    FOREIGN KEY (job_ID) REFERENCES job_listing(job_ID),
-    FOREIGN KEY (user_ID) REFERENCES user(user_ID)
+    FOREIGN KEY (job_ID) REFERENCES job_listing(job_ID) ON DELETE CASCADE,
+    FOREIGN KEY (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE user_depositor (
@@ -194,8 +193,8 @@ CREATE TABLE user_depositor (
     access_date DATE,
     payment_interval int,
     PRIMARY KEY (account_number),
-    FOREIGN KEY (account_number) REFERENCES account(account_number),
-    FOREIGN KEY (user_ID) REFERENCES user(user_ID)
+    FOREIGN KEY (account_number) REFERENCES account(account_number) ON DELETE CASCADE,
+    FOREIGN KEY (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE employer_depositor (
@@ -204,8 +203,8 @@ CREATE TABLE employer_depositor (
     access_date DATE,
     payment_interval int,
     PRIMARY KEY (account_number),
-    FOREIGN KEY (account_number) REFERENCES account(account_number),
-    FOREIGN KEY (employer_ID) REFERENCES employer(employer_ID)
+    FOREIGN KEY (account_number) REFERENCES account(account_number) ON DELETE CASCADE,
+    FOREIGN KEY (employer_ID) REFERENCES employer(employer_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE pays (
@@ -213,13 +212,13 @@ CREATE TABLE pays (
     account_number int NOT NULL,
     amount int,
     PRIMARY KEY (payment_number, account_number),
-    FOREIGN KEY (payment_number) REFERENCES manual_payment(payment_number),
-    FOREIGN KEY (account_number) REFERENCES account(account_number)
+    FOREIGN KEY (payment_number) REFERENCES manual_payment(payment_number) ON DELETE CASCADE,
+    FOREIGN KEY (account_number) REFERENCES account(account_number) ON DELETE CASCADE
 );
 
 CREATE TABLE has_skills (
     user_ID int NOT NULL,
     skill varchar(50),
     PRIMARY KEY (user_ID, skill),
-    FOREIGN KEY (user_ID) REFERENCES user(user_ID)
+    FOREIGN KEY (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE
 );

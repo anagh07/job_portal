@@ -166,4 +166,40 @@ class Job {
             return false;
         }
     }
+
+    // Delete job listing
+    public function deleteJobListing($jobid) {
+        $this->db->query("
+            DELETE from job_listing
+            WHERE job_ID = :jobid
+        ");
+        $this->db->bind(':jobid', $jobid);
+        $delete = $this->db->execute();
+        
+        // Return true/false depending on whether job was created
+        if ($delete) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Delete/ withdraw application
+    public function deleteApplication($jobid, $userid) {
+        $this->db->query("
+            DELETE from application
+            WHERE job_ID = :jobid
+            AND user_ID = :userid
+        ");
+        $this->db->bind(':jobid', $jobid);
+        $this->db->bind(':userid', $userid);
+        $result = $this->db->execute();
+        
+        // Return true/false depending on whether job was created
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
