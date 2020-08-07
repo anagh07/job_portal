@@ -39,10 +39,9 @@
             <table class="table table-hover">
             <tbody>
                 <tr class="table-active">
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
+                    <?php foreach($skills as $skill): ?>
+                        <td><?php echo $skill->skill ?></td>
+                    <?php endforeach ?>
                 </tr>
             </tbody>
             </table> 
@@ -51,7 +50,7 @@
         <p class="lead">
             <form action="index.php?controller=addskill" method="post">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Enter skill" id="addskill">
+                    <input type="text" class="form-control" placeholder="Enter skill" name="skill" id="skill">
                     <hr>
                     <input type="submit" class="btn btn-primary" value="Add skill" name="addskill">
                 </div>
@@ -64,24 +63,27 @@
         <h3>My applications</h3>
         
         <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small>3 days ago</small>
-                </div>
-                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                <small>Donec id elit non mi porta.</small>
-                <a class="btn btn-link" href="#" type="button">Withdraw Application</a>
-            </a>
-            <hr>
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small class="text-muted">3 days ago</small>
-                </div>
-                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                <small class="text-muted">Donec id elit non mi porta.</small>
-            </a>
+            <?php foreach($applications as $application): ?>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><?php echo $application->job_title ?></h5>
+                    <small>applied on <?php echo $application->application_date ?></small>
+                    </div>
+                    <div class="d-flex w-100 justify-content-between">
+                    <p class="mb-1">Company: <?php echo $application->company ?></p>
+                    </div>
+                    <?php if(!empty($offerStatus)): ?>
+                        <small>Status: <?php echo $offerStatus ?></small>
+                        <?php if($offerStatus == 'accepted'): ?>
+                            <a class="btn btn-link" href="myAccount.php?jobStatusId=<?php echo $application->job_ID ?>" type="button">Check Status</a>
+                        <?php endif ?>
+                    <?php else: ?>
+                        <a class="btn btn-link" href="myAccount.php?jobStatusId=<?php echo $application->job_ID ?>" type="button">Check Status</a>
+                    <?php endif ?>
+                    <a class="btn btn-outline-warning btn-sm" href="#" type="button">Withdraw Application</a>
+                </a>
+                <hr>
+            <?php endforeach ?>
         </div>
     </div>
 

@@ -17,11 +17,13 @@ if (isset($_POST['login'])) {
         // employers auth code
         $auth_employer = $user->getEmployer($_POST['email']);
         $auth_email = $auth_employer->email;
+        $auth_id = $auth_employer->employer_ID;
         $auth_password = $auth_employer->login_password;
         if ($auth_email == $input_email && $auth_password == $input_password) {
             $_SESSION['isLoggedIn'] = true;
             $_SESSION['employerLogin'] = true;
             $_SESSION['loggedInUserEmail'] = $auth_email;
+            $_SESSION['loggedInUserId'] = $auth_id;
             $_SESSION['loggedInUserType'] = $input_usertype;
             redirect('index.php', 'Successfully logged in!', 'success');
         } else {
@@ -34,10 +36,12 @@ if (isset($_POST['login'])) {
         $auth_user = $user->getUser($_POST['email']);
         $auth_email = $auth_user->email;
         $auth_password = $auth_user->login_password;
+        $auth_id = $auth_user->user_ID;
         // Check for match
         if ($auth_email == $input_email && $auth_password == $input_password) {
             $_SESSION['isLoggedIn'] = true;
             $_SESSION['loggedInUserEmail'] = $auth_email;
+            $_SESSION['loggedInUserId'] = $auth_id;
             $_SESSION['loggedInUserType'] = $input_usertype;
             redirect('userDashboard.php', 'Successfully logged in!', 'success');
         } else {

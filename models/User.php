@@ -130,4 +130,54 @@ class User {
             return false;
         }
     }
+
+    public function getSkills($user_id) {
+        $this->db->query("
+            SELECT * FROM has_skills
+            WHERE user_ID = :user_id
+        ");
+        $this->db->bind(':user_id', $user_id);
+        $result = $this->db->resultSet();
+
+        return $result;
+    }
+
+    public function createApplication($jobid, $userid) {
+        // Query
+        $this->db->query("
+            INSERT INTO application (job_ID, user_ID, application_date) VALUES (:job_ID, :user_ID, CURDATE())
+        ");
+        $this->db->bind(':job_ID', $jobid);
+        $this->db->bind(':user_ID', $userid);
+
+        // Return true/false depending on whether job was created
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getApplicationsByUserId($userid) {
+        $this->db->query("
+            SELECT * FROM application
+            INNER JOIN user ON application.user_ID = user.user_ID
+            INNER JOIN job_listing ON application.job_ID = job_listing.job_ID
+            WHERE application.user_ID = :user_ID
+        ");
+        $this->db->bind(':user_ID', $userid);
+        $result = $this->db->resultSet();
+
+        return $result;
+    }
+
+    public function getApplicationsByJobId($jobid) {
+        $this->db->query("
+            SELECT * FROM application WHERE job_ID = :job_ID
+        ");
+        $this->db->bind(':job_ID', $jobid);
+        $result = $this->db->resultSet();
+
+        return $result;
+    }
 }

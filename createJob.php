@@ -21,6 +21,9 @@ if (empty($_SESSION['loggedInUserType'])) {
     
         // Check if job created
         if ($job->create($data)) {
+            // posts table
+            $newJobId = $job->getJobByTitleCompany($data['job_title'], $data['company'])->job_ID;
+            $job->addPosts($newJobId, $_SESSION['loggedInUserId']);
             redirect('index.php', 'Job listing created', 'success');
         } else {
             redirect('createJob.php', 'Failed to create job listing', 'error');

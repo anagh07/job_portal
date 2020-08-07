@@ -2,6 +2,7 @@
 
 <?php
 $user = new User;
+$job = new Job;
 
 // If employer
 if ($_SESSION['loggedInUserType'] == 'employer') {
@@ -15,16 +16,31 @@ if ($_SESSION['loggedInUserType'] == 'employer') {
     }
 
     // Render data
-    // Render data
+    // Account data
     $account_emp = $user->getEmployer($_SESSION['loggedInUserEmail']);
     $template->employer = $account_emp;
     $template->emp_category = $user->getEmployerCategory($account_emp->employer_ID)->emp_category;
+    // Posted jobs data
+    $template->jobs = $job->getJobsByEmployer($account_emp->employer_ID);
 
     echo $template;
 }
 // If normal user
 else {
     $template = new Template('views/myUserAccount.php');
+
+    if (isset($_GET['jobStatusId'])) {
+        $jobid = $_GET['jobStatusId'];
+        // Find if offer exists for current user in offers table
+        $offer = $job->getOfferByUserJobId($_SESSION['loggedInUserId'], $jobid);
+        // Pass "pending" if no offer found
+        if (empty($offer)) {
+            $template->offerStatus = 'pending';
+        } else {
+            // Pass "accepted" if offer found
+            $template->offerStatus = 'accepted';
+        }
+    }
     
     // Session data
     if (!empty($_SESSION['isLoggedIn'])) {
@@ -37,6 +53,9 @@ else {
     $account_user = $user->getUser($_SESSION['loggedInUserEmail']);
     $template->user = $account_user;
     $template->user_category = $user->getUserCategory($account_user->user_ID)->user_category;
+
+    $template->skills = $user->getSkills($_SESSION['loggedInUserId']);
+    $template->applications = $user->getApplicationsByUserId($_SESSION['loggedInUserId']);
 
     echo $template;
 }

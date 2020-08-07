@@ -46,6 +46,31 @@ SELECT email, login_password FROM employer WHERE email = :e_email
 INSERT INTO employer (employer_name, emp_description, phone, email, login_password, regist_date) 
 VALUES (:employer_name, :emp_description, :phone, :email, :login_password, CURDATE());
 
+-- get skills for a user
+SELECT * FROM has_skills
+WHERE user_ID = :user_id;
+
+-- add skills
+INSERT INTO has_skills (user_ID, skill) VALUES (:user_ID, :skill);
+
+-- submit application
+INSERT INTO application (job_ID, user_ID, application_date) 
+VALUES (:job_ID, :user_ID, CURDATE());
+
+-- get applications by a user
+SELECT * FROM application
+    INNER JOIN user ON application.user_ID = user.user_ID
+    INNER JOIN job_listing ON application.job_ID = job_listing.job_ID
+WHERE application.user_ID = :user_ID;
+
+-- get all applications submitted for a single job
+SELECT * FROM application WHERE job_ID = :job_ID;
+
+-- get jobs posted by an employer
+SELECT * FROM job_listing 
+JOIN posts ON job_listing.job_ID = posts.job_ID
+WHERE posts.employer_ID = :empid;
+
 select * 
 from job_listing 
 where category_id = 1;

@@ -7,6 +7,7 @@ $user = new User;
 // Delete login data from session
 unset($_SESSION['isLoggedIn']);
 unset($_SESSION['loggedInUserEmail']);
+unset($_SESSION['loggedInUserId']);
 unset($_SESSION['loggedInUserType']);
 
 if (!empty($_SESSION['employerLogin'])) {

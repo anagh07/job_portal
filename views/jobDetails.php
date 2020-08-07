@@ -9,10 +9,10 @@
 
     <ul class="list-group">
             <li class="list-group-item">
-                <strong>Company:</strong><?php echo $job->company; ?>
+                <strong>Company: </strong><?php echo $job->company; ?>
             </li>
             <li class="list-group-item">
-                <strong>Salary: </strong><?php echo $job->salary; ?>
+                <strong>Salary ($/yr): </strong><?php echo $job->salary; ?>
             </li>
             <li class="list-group-item">
                 <strong>Vacancies: </strong><?php echo $job->no_of_vacancies; ?>
@@ -30,7 +30,11 @@
                 </p>
             </li>
             <?php if (!empty($_SESSION['loggedInUserType']) && $_SESSION['loggedInUserType'] == 'user') : ?>
-                <a class="mb-1 btn btn-outline-success" href="#" type="button">Apply now</a>
+                <form action="index.php?controller=createApplication" method="post">
+                    <input type="hidden" name="jobid" id="jobid" value="<?php echo $job->job_ID ?>" class="form-control">
+                    <input type="hidden" name="userid" id="userid" value="<?php echo $_SESSION['loggedInUserId'] ?>" class="form-control">
+                    <input type="submit" class="mt-4 btn btn-outline-success" value="Apply Now" name="applynow" id="applynow">
+                </form>
             <?php endif ?>
     </ul>
     <hr>
@@ -41,18 +45,26 @@
     <?php if (!empty($_SESSION['loggedInUserType']) && $_SESSION['loggedInUserType'] == 'employer') : ?>
         <h3 class="page-header">Applicants</h3>
         <hr>
-        <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small>3 days ago</small>
-                </div>
-                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                <small>Donec id elit non mi porta.</small>
-            </a>
-            <a class="mb-1 btn btn-outline-info" href="#" type="button">View applicant profile</a>
-            <a class="mb-1 btn btn-outline-success" href="#" type="button">Offer job to applicant</a>
-        </div>
+        <?php foreach($applicants as $applicant): ?>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between mb-2">
+                    <h5 class="mb-1"><?php echo $applicant->first_name . ' ' . $applicant->last_name ?></h5>
+                    <small>applied on <?php echo $applicant->application_date ?></small>
+                    </div>
+                    <p class="mb-1">Email: <?php echo $applicant->email ?></p>
+                    <p class="mb-2">Phone: <?php echo $applicant->phone ?></p>
+                    <p class="mb-1">Skills: <!-- get list of skills --></p>
+                    <ul>
+                        <?php foreach($skills[$applicant->user_ID] as $skill): ?>
+                            <li><?php echo $skill->skill ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                </a>
+                <a class="mb-1 btn btn-outline-info" href="#" type="button">View applicant profile</a>
+                <a class="mb-1 btn btn-outline-success" href="#" type="button">Offer job to applicant</a>
+            </div>
+        <?php endforeach ?>
     <?php endif ?>
 
     <hr>

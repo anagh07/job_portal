@@ -19,7 +19,7 @@
         <div class="row marketing">
             <div class="col-md-10">
                 <h4><?php echo $job->job_title; ?></h4>
-                <p><?php echo $job->job_description; ?></p>
+                <p>at <?php echo $job->company; ?></p>
             </div>
             <div class="col-md-2">
                 <a class="btn btn-primary" href="jobDetails.php?id=<?php echo $job->job_ID; ?>">View</a>

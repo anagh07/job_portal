@@ -53,6 +53,29 @@ class Job {
         return $result;
     }
 
+    public function getJobByTitleCompany($title, $company) {
+        $this->db->query("
+            SELECT * FROM job_listing WHERE job_title = :job_title AND company = :company
+        ");
+        $this->db->bind(':job_title', $title);
+        $this->db->bind(':company', $company);
+        $result = $this->db->single();
+
+        return $result;
+    }
+
+    public function getJobsByEmployer($empid) {
+        $this->db->query("
+            SELECT * FROM job_listing 
+            JOIN posts ON job_listing.job_ID = posts.job_ID
+            WHERE posts.employer_ID = :empid;
+        ");
+        $this->db->bind(':empid', $empid);
+        $result = $this->db->resultSet();
+
+        return $result;
+    }
+
     public function create($data) {
         // Query
         $this->db->query("
@@ -71,5 +94,50 @@ class Job {
         } else {
             return false;
         }
+    }
+
+    // Job posted by Employer
+    public function addPosts($jodid, $empid) {
+        // Query
+        $this->db->query("
+            INSERT INTO posts (job_ID, employer_ID)
+            VALUES (:job_ID, :employer_ID)
+        ");
+        $this->db->bind(':job_ID', $jodid);
+        $this->db->bind(':employer_ID', $empid);
+
+        // Return true/false depending on whether job was created
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Check application status (offers table)
+    public function getOfferByUserJobId($userid, $jobid) {
+        $this->db->query("
+            SELECT * FROM offers
+            WHERE user_ID = :userid
+            AND job_ID = :jobid
+        ");
+        $this->db->bind(':userid', $userid);
+        $this->db->bind(':jobid', $jobid);
+        $result = $this->db->single();
+
+        return $result;
+    }
+
+    // List of applicants per job
+    public function getApplicantsByJobId($jobid) {
+        $this->db->query("
+            SELECT * FROM application
+            INNER JOIN user ON application.user_ID = user.user_ID
+            WHERE job_ID = :jobid
+        ");
+        $this->db->bind(':jobid', $jobid);
+        $result = $this->db->resultSet();
+
+        return $result;
     }
 }

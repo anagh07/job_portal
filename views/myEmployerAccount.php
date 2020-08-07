@@ -36,19 +36,21 @@
     <div class="jumbotron">
         <h3>Jobs posted by me</h3>
         <hr>
-        <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small>3 days ago</small>
-                </div>
-                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                <small>Donec id elit non mi porta.</small>
-                <a class="mb-1 btn btn-outline-info" href="#" type="button">View details and applicants</a>
-                <a class="mb-5 btn btn-outline-danger" href="#" type="button">Delete Listing</a>
-            </a>
-            <hr>
-        </div>
+        <?php foreach($jobs as $job): ?>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><?php echo $job->job_title ?></h5>
+                    <small><?php echo $job->post_date ?></small>
+                    </div>
+                    <p class="mb-1 mt-2"><?php echo $job->job_description ?></p>
+                    <small>Company: <?php echo $job->company ?></small>
+                    <a class="mb-1 btn btn-outline-info" href="jobDetails.php?id=<?php echo $job->job_ID ?>" type="button">View details and applicants</a>
+                    <a class="mb-5 btn btn-outline-danger" href="#" type="button">Delete Listing</a>
+                </a>
+                <hr>
+            </div>
+        <?php endforeach ?>
     </div>
 
 <?php include 'includes/footer.php'; ?>
