@@ -15,6 +15,14 @@ class User {
         return $result;
     }
 
+    public function getUserById($id) {
+        $this->db->query("SELECT * FROM user WHERE user_ID = :id");
+        $this->db->bind(':id', $id);
+        $result = $this->db->single();
+
+        return $result;
+    }
+
     public function getEmployer($email) {
         $this->db->query("SELECT * FROM employer WHERE email = :e_email");
         $this->db->bind(':e_email', $email);
@@ -177,6 +185,21 @@ class User {
         ");
         $this->db->bind(':job_ID', $jobid);
         $result = $this->db->resultSet();
+
+        return $result;
+    }
+
+    public function getApplicationByUserIdJobId($userid, $jobid) {
+        $this->db->query("
+            SELECT * FROM application
+            INNER JOIN user ON application.user_ID = user.user_ID
+            INNER JOIN job_listing ON application.job_ID = job_listing.job_ID
+            WHERE application.user_ID = :user_ID
+            AND application.job_ID = :job_ID
+        ");
+        $this->db->bind(':user_ID', $userid);
+        $this->db->bind(':job_ID', $jobid);
+        $result = $this->db->single();
 
         return $result;
     }

@@ -7,6 +7,30 @@
     <small>Posted by <?php echo $job->company; ?> on <?php echo $job->post_date; ?></small>
     <hr>
 
+    <!-- Status section if user has applied -->
+    <?php if(!empty($hasApplied) && $hasApplied == true): ?>
+        <div class="jumbotron">
+            <?php if($offerStatus == 'accepted'): ?>
+                <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Application Status</div>
+                    <div class="card-body">
+                        <h4 class="card-title">Job Offered!</h4>
+                        <p class="card-text">Congratulations! You have been offered a position for this job.</p>
+                        <p class="card-text">Offered salary: </p>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Application Status</div>
+                    <div class="card-body">
+                        <h4 class="card-title">Pending...</h4>
+                        <p class="card-text">Patience has its rewards.</p>
+                    </div>
+                </div>
+            <?php endif ?>
+        </div>
+    <?php endif ?>
+
     <ul class="list-group">
             <li class="list-group-item">
                 <strong>Company: </strong><?php echo $job->company; ?>
@@ -62,7 +86,11 @@
                     </ul>
                 </a>
                 <a class="mb-1 btn btn-outline-info" href="#" type="button">View applicant profile</a>
-                <a class="mb-1 btn btn-outline-success" href="#" type="button">Offer job to applicant</a>
+                <form class="btn btn-outline-success" action="jobOfferForm.php" method="post">
+                    <input type="hidden" name="jobid" id="jobid" value="<?php echo $applicant->job_ID ?>" class="form-control">
+                    <input type="hidden" name="userid" id="userid" value="<?php echo $applicant->user_ID ?>" class="form-control">
+                    <input type="submit" class="btn btn-link" value="Offer Job to Applicant" name="joboffer">
+                </form>
             </div>
         <?php endforeach ?>
     <?php endif ?>

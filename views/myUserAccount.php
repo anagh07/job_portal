@@ -72,14 +72,7 @@
                     <div class="d-flex w-100 justify-content-between">
                     <p class="mb-1">Company: <?php echo $application->company ?></p>
                     </div>
-                    <?php if(!empty($offerStatus)): ?>
-                        <small>Status: <?php echo $offerStatus ?></small>
-                        <?php if($offerStatus == 'accepted'): ?>
-                            <a class="btn btn-link" href="myAccount.php?jobStatusId=<?php echo $application->job_ID ?>" type="button">Check Status</a>
-                        <?php endif ?>
-                    <?php else: ?>
-                        <a class="btn btn-link" href="myAccount.php?jobStatusId=<?php echo $application->job_ID ?>" type="button">Check Status</a>
-                    <?php endif ?>
+                    <a class="btn btn-outline-info btn-sm mb-1" href="jobDetails.php?id=<?php echo $application->job_ID ?>" type="button">Check Status</a>
                     <a class="btn btn-outline-warning btn-sm" href="#" type="button">Withdraw Application</a>
                 </a>
                 <hr>

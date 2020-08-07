@@ -140,4 +140,30 @@ class Job {
 
         return $result;
     }
+
+    // Offer job to applicant
+    public function createJobOfferToUser($jobid, $userid, $salary) {
+        $this->db->query("
+            INSERT INTO job_offer (job_ID, salary)
+            VALUES (:jobid, :salary)
+        ");
+        $this->db->bind(':jobid', $jobid);
+        $this->db->bind(':salary', $salary);
+        $joboffer = $this->db->execute();
+
+        $this->db->query("
+            INSERT INTO offers (job_ID, user_ID)
+            VALUES (:jobid, :userid)
+        ");
+        $this->db->bind(':jobid', $jobid);
+        $this->db->bind(':userid', $userid);
+        $useroffer = $this->db->execute();
+        
+        // Return true/false depending on whether job was created
+        if ($joboffer && $useroffer) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

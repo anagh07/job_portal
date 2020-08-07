@@ -28,19 +28,6 @@ if ($_SESSION['loggedInUserType'] == 'employer') {
 // If normal user
 else {
     $template = new Template('views/myUserAccount.php');
-
-    if (isset($_GET['jobStatusId'])) {
-        $jobid = $_GET['jobStatusId'];
-        // Find if offer exists for current user in offers table
-        $offer = $job->getOfferByUserJobId($_SESSION['loggedInUserId'], $jobid);
-        // Pass "pending" if no offer found
-        if (empty($offer)) {
-            $template->offerStatus = 'pending';
-        } else {
-            // Pass "accepted" if offer found
-            $template->offerStatus = 'accepted';
-        }
-    }
     
     // Session data
     if (!empty($_SESSION['isLoggedIn'])) {

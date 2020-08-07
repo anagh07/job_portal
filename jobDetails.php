@@ -27,4 +27,21 @@ if (!empty($_SESSION['loggedInUserType']) && $_SESSION['loggedInUserType'] == 'e
     $template->skills = $skills;
 }
 
+// For users
+if (!empty($_SESSION['loggedInUserType']) && $_SESSION['loggedInUserType'] == 'user') {
+    // Find if user applied to job
+    $hasApplied = $user->getApplicationByUserIdJobId($_SESSION['loggedInUserId'], $job_id);
+    $template->hasApplied = $hasApplied;
+
+    // Find if offer exists for current user in offers table
+    $offer = $job->getOfferByUserJobId($_SESSION['loggedInUserId'], $job_id);
+    // Pass "pending" if no offer found
+    if (empty($offer)) {
+        $template->offerStatus = 'pending';
+    } else {
+        // Pass "accepted" if offer found
+        $template->offerStatus = 'accepted';
+    }
+}
+
 echo $template;
