@@ -1,5 +1,4 @@
 <?php include_once 'config/init.php'; ?>
-
 <?php
 // User model
 $user = new User;

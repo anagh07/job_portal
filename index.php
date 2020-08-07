@@ -1,5 +1,4 @@
 <?php include_once 'config/init.php'; ?>
-
 <?php
 if (isset($_GET['controller'])) {
     include ('controllers/' . $_GET['controller'] . '.php');
