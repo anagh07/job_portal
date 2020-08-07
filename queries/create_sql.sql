@@ -1,6 +1,6 @@
 DROP DATABASE career_portal;
 CREATE database career_portal;
-USE career_portal;
+USE hxc55311;
 CREATE TABLE employer (
     employer_ID int NOT NULL AUTO_INCREMENT,
     first_name varchar(50) NOT NULL,
