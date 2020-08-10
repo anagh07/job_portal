@@ -2,7 +2,7 @@
 A website for recruiters and job seekers to create job ads, find jobs, and apply to them.
 
 ### Live link
-<a href="">Click here</a>
+Click <a href="https://careerjobportal77.000webhostapp.com/">here</a>
 
 <p align="center">
   <img width="720" height="400" src="career_portal_demo.gif">
