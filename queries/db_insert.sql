@@ -59,7 +59,7 @@ INSERT INTO job_category ()
 VALUES (1, 'automobile'); 
 
 INSERT INTO job_category ()
-VALUES (2, 'electricity');
+VALUES (2, 'medical');
 
 INSERT INTO job_category ()
 VALUES (3, 'education');
@@ -68,7 +68,7 @@ INSERT INTO job_category ()
 VALUES (4, 'agriculture'); 
 
 INSERT INTO job_category ()
-VALUES (5, 'technology'), (6, 'engineering'), (7, 'business'), (8, 'entertainment'), (9, 'management'), (10, 'research');
+VALUES (5, 'technology'), (6, 'engineering'), (7, 'business'), (8, 'entertainment'), (9, 'management'), (10, 'research'), (11, 'sports');
 
 
 INSERT INTO job_listing ()
