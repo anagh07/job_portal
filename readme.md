@@ -5,7 +5,7 @@ A website for recruiters and job seekers to create job ads, find jobs, and apply
 <a href="">Click here</a>
 
 <p align="center">
-  <img width="750" height="470" src="career_portal_demo.gif">
+  <img width="720" height="400" src="career_portal_demo.gif">
 </p>
 
 # Description
